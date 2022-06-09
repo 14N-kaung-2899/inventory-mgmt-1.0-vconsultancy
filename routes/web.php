@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 //Address Related Controller Importing
 use app\Http\Controllers\CountryController;
@@ -32,31 +36,36 @@ use app\Http\Controllers\PayrollController;
 |
 */
 
-
 Auth::routes();
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::resource('item', 'App\Http\Controllers\ItemController');
+Route::group(array('before' => 'auth'), function()
+{
+    Route::resource('userregister', 'App\Http\Controllers\UserRegisterController');
 
-Route::resource('country', 'App\Http\Controllers\CountryController');
-Route::resource('city', 'App\Http\Controllers\CityController');
-Route::resource('district', 'App\Http\Controllers\DistrictController');
-Route::resource('subdistrict', 'App\Http\Controllers\SubdistrictController');
+    Route::resource('item', 'App\Http\Controllers\ItemController');
 
-Route::resource('category', 'App\Http\Controllers\CategoryController');
-Route::resource('storage', 'App\Http\Controllers\StorageController');
+    Route::resource('country', 'App\Http\Controllers\CountryController');
+    Route::resource('city', 'App\Http\Controllers\CityController');
+    Route::resource('district', 'App\Http\Controllers\DistrictController');
+    Route::resource('subdistrict', 'App\Http\Controllers\SubdistrictController');
 
-Route::resource('employee', 'App\Http\Controllers\EmployeeController');
-Route::resource('employment', 'App\Http\Controllers\EmploymentController');
-Route::resource('role', 'App\Http\Controllers\RoleController');
-Route::resource('emergency', 'App\Http\Controllers\EmergencyController');
-Route::resource('kpi', 'App\Http\Controllers\KpiController');
-Route::resource('officedoc', 'App\Http\Controllers\OfficedocController');
-Route::resource('payroll', 'App\Http\Controllers\PayrollController');
+    Route::resource('category', 'App\Http\Controllers\CategoryController');
+    Route::resource('storage', 'App\Http\Controllers\StorageController');
 
-Route::resource('office', 'App\Http\Controllers\OfficeController');
-Route::resource('location', 'App\Http\Controllers\LocationController');
+    Route::resource('employee', 'App\Http\Controllers\EmployeeController');
+    Route::resource('employment', 'App\Http\Controllers\EmploymentController');
+    Route::resource('role', 'App\Http\Controllers\RoleController');
+    Route::resource('emergency', 'App\Http\Controllers\EmergencyController');
+    Route::resource('kpi', 'App\Http\Controllers\KpiController');
+    Route::resource('officedoc', 'App\Http\Controllers\OfficedocController');
+    Route::resource('payroll', 'App\Http\Controllers\PayrollController');
+
+    Route::resource('office', 'App\Http\Controllers\OfficeController');
+    Route::resource('location', 'App\Http\Controllers\LocationController');
+});
+
+
+
 

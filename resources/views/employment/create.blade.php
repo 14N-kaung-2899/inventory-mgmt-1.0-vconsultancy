@@ -61,8 +61,8 @@
                                 <td> {{$e->salary}} </td>
                                 <td> {{$e->link}} </td>
                                 <td align="center">  
-                                    <a href="{{route('employment.edit',$e->id)}}">
-                                        EDIT
+                                    <a style="color:blue; text-decoration:none" href="{{route('employment.edit',$e->id)}}">
+                                            <i class="ph-note-pencil"> </i> <b> Edit </b>
                                     </a>
                                 </td>
                                 <td align="center"> 

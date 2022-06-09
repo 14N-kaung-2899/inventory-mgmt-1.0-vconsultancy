@@ -16,8 +16,8 @@
                         
                         <br>
 
-                        <label for="des"> Description: </label>
-                        <input id="des" name="des" class="form-control" maxlength = "200" placeholder="Enter short description... (Optional)">
+                        <label for="description"> Description: </label>
+                        <input id="description" name="description" class="form-control" maxlength = "200" placeholder="Enter short description... (Optional)">
                         
                         <br>
                         <div class="form-group">
@@ -41,16 +41,37 @@
                         </div>                
 
                         <div class="form-group">
-                            <label for="employee"> Choose Owner: </label>
+                            <label for="owner"> Choose Owner: </label>
                             <br>
-                            <select name="employee" id="employee">
+                            <select name="owner" id="owner">
+                                <option value="0"> Office </option>
                                 @foreach($employee as $emp)
-                                    <option value="{{$emp->id}}"> {{($emp->fname)." ".($emp->lname)}} </option>
+                                    @if($emp->mname=="N/A")
+                                        <option value="{{$emp->id}}"> {{($emp->fname)." ".($emp->lname)}} </option>
+                                    @else
+                                        <option value="{{$emp->id}}"> {{($emp->fname)." ".($emp->mname)." ".($emp->lname)}} </option>
+                                    @endif                                    
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="employee"> Choose Current User: </label>
+                            <br>
+                            <select name="employee" id="employee">
+                                @foreach($employee as $emp)
+                                    @if($emp->mname=="N/A")
+                                        <option value="{{$emp->id}}"> {{($emp->fname)." ".($emp->lname)}} </option>
+                                    @else
+                                        <option value="{{$emp->id}}"> {{($emp->fname)." ".($emp->mname)." ".($emp->lname)}} </option>
+                                    @endif  
+                                @endforeach
+                            </select>
+                        </div>
+                        
                     </div>
                 </div>
+                <br>
                 <button type="submit" class="btn btn-primary">
                     {{ __('Register') }}
                 </button>

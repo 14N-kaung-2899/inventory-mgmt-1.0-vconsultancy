@@ -27,7 +27,7 @@
                     <label for="location"> Select Location:  </label>
                     <select name="location" id="location">
                         @foreach($location as $l)
-                            <option value="{{$l->id}}"> {{"$l->line1"."$l->line2"}} </option>
+                            <option value="{{$l->id}}"> {{"$l->line1".", "."$l->line2"}} </option>
                         @endforeach
                     </select>
                     

@@ -6,9 +6,16 @@ use App\Models\Item;
 use App\Models\Employee;
 use App\Models\Storage;
 use App\Models\Category;
+use App\Models\Office;
+use App\Models\Location;
+use App\Models\Subdistrict;
+use App\Models\District;
+use App\Models\City;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use PHPUnit\Framework\Constraint\Count;
 
 class ItemController extends Controller
 {
@@ -48,17 +55,11 @@ class ItemController extends Controller
      */
     public function create()
     {
-        $i = Item::orderBy('updated_at','desc')->get();
-        $e = Employee::all();
-        $s = Storage::all();
-        $c = Category::orderBy('name','asc')->get();      
+        $employee = Employee::orderBy('id','asc')->get();
+        $category = Category::orderBy('name','asc')->get();
+        $storage = Storage::orderBy('name','asc')->get();
 
-        $item = $i;
-        $employee = $e;
-        $storage = $s;
-        $category = $c;
-
-        return view('item.create', compact('item','employee','storage','category'));
+        return view('item.create', compact('employee','storage','category'));
     }
 
     /**
@@ -77,16 +78,17 @@ class ItemController extends Controller
         $item->name = request('name');
 
         //Description
-        if(request('description')==""||request('description')==null){
+        if(request('description')==" "||request('description')==null){
             $item->description = "N/A";
         }else{            
             $item->description = request('description');
         }
         
         //Owner
-        $empname = Employee::where('id', request('employee'))->get(['fname', 'mname', 'lname'])->first();
+        $empname = Employee::where('id', request('owner'))->get(['fname', 'mname', 'lname'])->first();
+
         if($empname==""|| $empname==null){
-            $item->owner = "Stored In Office";            
+            $item->owner = "Owned By Office";            
         }else{
             if($empname->mname=="N/A"){
                 $item->owner = ($empname->fname)." ".($empname->lname); 
@@ -119,16 +121,12 @@ class ItemController extends Controller
         }
 
         $item->save();
-
-        $item = Item::orderBy('itemid','asc')->get();
-
-
-        $item = Item::orderBy('itemid','asc')->get();
+        
         $employee = Employee::orderBy('id','asc')->get();
-        $category = Category::orderBy('id','asc')->get();
-        $storage = Storage::orderBy('id','asc')->get();
+        $category = Category::orderBy('name','asc')->get();
+        $storage = Storage::orderBy('name','asc')->get();
 
-        return view('item.index', compact('employee', 'item','category','storage'));
+        return view('item.create', compact('employee', 'category','storage'));
     }
 
     /**
@@ -139,7 +137,19 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return view('item.show', compact('item'));
+        $category = Category::where('id', $item->cid)->first();        
+        $storage = Storage::where('id', $item->sid)->first();
+        $office = Office::where('id', $storage->office_id)->first();
+        
+        $employee = Employee::where('id', $item->eid)->first();
+
+        $location = Location::where('id', $storage->office_id)->first();
+        $subdistrict = Subdistrict::where('id', $location->subdistrict_id)->first();
+        $district = District::where('id', $subdistrict->district_id)->first();
+        $city = City::where('id', $district->city_id)->first();
+        $country = Country::where('id', $city->country_id)->first();
+
+        return view('item.show', compact('item', 'category', 'storage','office', 'employee', 'location','subdistrict', 'district', 'city', 'country'));
     }
 
     /**
@@ -152,16 +162,22 @@ class ItemController extends Controller
     {
         $item = Item::where('id', $id)->first();
 
-        $e = Employee::all();
-        $s = Storage::all();
-        $c = Category::orderBy('name','asc')->get();   
-        
-        $employee = $e;
-        $storage = $s;
-        $category = $c;
+        $employee = Employee::all();
+        $storage = Storage::all();
+        $category = Category::orderBy('name','asc')->get();   
+
+        $getname = Employee::get(['fname','mname','lname']);
+
+        for($loop=0; $loop<count($getname); $loop++){
+            if(($getname[$loop]->mname)=="N/A"){
+                $empname[$loop]=($getname[$loop]->fname)." ".($getname[$loop]->lname);
+            }else{
+                $empname[$loop]=($getname[$loop]->fname)." ".($getname[$loop]->mname)." ".($getname[$loop]->lname);
+            }
+        }
 
         if ($item) {
-            return view('item.edit', compact('item', 'employee','storage','category'));
+            return view('item.edit', compact('item', 'employee','storage','category', 'empname'));
         }
         return redirect()->back()->with('danger', 'Item Not Found!');
     }
@@ -179,26 +195,12 @@ class ItemController extends Controller
             'name' => "required",
         ]);
 
-        $empname = Employee::where('id', request('employee'))->get(['fname', 'mname', 'lname'])->first();
-        if($empname==""|| $empname==null){
-            $ownername = "Stored In Office";            
-        }else{
-            if($empname->mname=="N/A"){
-                $ownername = ($empname->fname)." ".($empname->lname); 
-            }else{
-                $ownername = ($empname->fname)." ".($empname->mname)." ".($empname->lname); 
-            }
-        }
-
-        $countcategory = Item::where('cid',request('category'))->count();
-        $ckey = Category::where('id', $request->category)->get(['abbr'])->first();
-
         Item::where('id', $id)->update([
             'id' => $id,       
             'name' => $request->name,
             'description' => $request->description,
-            'owner' => $ownername,
-            'itemid' => $ckey->abbr.'-'.($countcategory+1), 
+            'owner' => $request->owner,
+            'itemid' => $request->itemid,
             'qrcode' => $request->qrcode,
             'sid' => $request->storage,
             'cid' => $request->category,
@@ -221,7 +223,27 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        DB::delete('delete from items where id = ?',[$id]);
+        //Got Deleted Item
+        $inputdelete = Item::where('id', $id)->first();
+        $deletenum = substr($inputdelete->itemid,4);
+        $deletekey = substr($inputdelete->itemid,0,4);
+
+        //Got All Same Category
+        $samecate = Item::where('cid', $inputdelete->cid)->get();
+        $leftitem = Item::where('cid', $inputdelete->cid)->get(['itemid']);       
+        
+        $temp = "Default";
+
+        $chkloop = 0;
+
+        for($loop=$deletenum; $loop < count($samecate); $loop++){  
+            Item::where('itemid', ($deletekey.substr(($samecate[$loop]->itemid),4)))->update([                                
+                'itemid' => $deletekey.(substr(($samecate[$loop]->itemid),4)-1),
+            ]);
+            $chkloop = $chkloop + 1;
+        } 
+
+        DB::delete('delete from items where id = ?',[$id]);        
 
         $item = Item::orderBy('itemid','asc')->get();
         $employee = Employee::orderBy('id','asc')->get();

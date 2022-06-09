@@ -3,6 +3,8 @@
 @section('content')
     <div class="content">
         <br>
+
+        @if((Auth::user()->role)!="Reader")                        
         <div class="container">                
             <h3> Add New Category: </h3>
             <form name="categoryform" id="categoryform" onsubmit="return validateCategoryInput()" action="{{route('category.store')}}" method="POST">
@@ -23,7 +25,7 @@
         </div>
 
         <br>
-
+        @endif
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h3>                     
@@ -40,7 +42,9 @@
                                 <th> Name </th>
                                 <th> Abbr </th>
                                 <th> Description</th>
+                                @if((Auth::user()->role)!="Reader")  
                                 <th colspan="2"> Action </th>
+                                @endif
                             </tr>
                         </thead>
                         <tfoot>
@@ -48,7 +52,9 @@
                                 <th> Name </th>
                                 <th> Abbr </th>
                                 <th> Description</th>
+                                @if((Auth::user()->role)!="Reader")  
                                 <th colspan="2"> Action </th>
+                                @endif
                             </tr>
                         </tfoot>
                         <tbody>
@@ -57,6 +63,7 @@
                                 <td> {{$c->name}} </td>
                                 <td> {{$c->abbr}} </td>
                                 <td> {{$c->description}} </td>
+                                @if((Auth::user()->role)!="Reader")  
                                 <td align="center">  
                                     <a style="color:blue; text-decoration:none" href="{{route('category.edit',$c->id)}}">
                                         <i class="ph-note-pencil"> </i> <b> Edit </b>
@@ -69,6 +76,7 @@
                                         <input style="background-color:#b00000;" type="submit" class="btn btn-danger" value="Delete">
                                     </form>
                                 </td>                                            
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

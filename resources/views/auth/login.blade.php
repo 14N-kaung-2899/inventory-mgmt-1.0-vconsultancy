@@ -8,11 +8,18 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6 d-none d-lg-block" style="padding-left:50px; padding-top:100px;">
+                            <center>
+                                <img src="https://storage.googleapis.com/stateless-my-aibt-global/2018/12/86b73503-vc-logo-landscape-01-full-colour.svg" alt="">
+                            </center>
+                            <br> <br> <br>
+                            <h5> Please Login To Access The Inventory Management System.</h5>
+                            
+                        </div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h3 style="color:#D4A953;"> <b> Login Here! </b> </h3>
                                 </div>                            
                                 <form method="POST" action="{{ route('login') }}">
                                 @csrf

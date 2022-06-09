@@ -17,30 +17,38 @@
                             <tr>
                                 <th> Item ID: </th>
                                 <th> Item Name: </th>
-                                <th> Owner: </th>    
                                 <th> Category: </th>                                    
-                                <th> Storage: </th>        
-                                <th colspan="3"> Action </th>
+                                <th> Storage: </th>     
+                                @if((Auth::user()->role)!="Reader")  
+                                    <th colspan="3"> Action </th>                                
+                                @else
+                                    <th> Action </th>
+                                @endif   
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th> Item ID: </th>
                                 <th> Item Name: </th>
-                                <th> Owner: </th>    
                                 <th> Category: </th>                                    
-                                <th> Storage: </th>        
-                                <th colspan="3"> Action </th>
+                                <th> Storage: </th>      
+                                @if((Auth::user()->role)!="Reader")  
+                                    <th colspan="3"> Action </th>                                
+                                @else
+                                    <th> Action </th>
+                                @endif    
                             </tr>
                         </tfoot>
                         <tbody>
                             @foreach ($item as $i)
                             <tr>
                                 <td> {{$i->itemid}} </td>
+                                
                                 <td>
                                     {{$i->name}} 
                                 </td>
-                                <td> {{$i->owner}} </td>
+
+                                <!-- <td> {{$i->owner}} </td> -->
                                 
                                 <td> 
                                     @for($cloop=0; $cloop<(count($category)); $cloop++)
@@ -64,10 +72,11 @@
                                         <i class="ph-clipboard-text-bold"></i> <b> View </b>
                                     </a>
                                 </td>
-
+                                
+                                @if((Auth::user()->role)!="Reader")  
                                 <td align="center">  
                                     <a style="color:blue; text-decoration:none" href="{{route('item.edit',$i->id)}}">
-                                            <i class="ph-note-pencil"> </i> <b> Edit </b>
+                                        <i class="ph-note-pencil"> </i> <b> Edit </b>
                                     </a>
                                 </td>
                                 <td align="center"> 
@@ -77,6 +86,7 @@
                                         <input style="background-color:#b00000;" type="submit" class="btn btn-danger" value="Delete">
                                     </form>
                                 </td>                                            
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

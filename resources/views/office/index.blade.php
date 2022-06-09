@@ -17,16 +17,20 @@
                             <tr>
                                 <th> Office Name: </th>
                                 <th> Office Location: </th>
-                                <th> Number Of Employee: </th>                                
+                                <th> Number Of Employee: </th>   
+                                @if((Auth::user()->role)!="Reader")  
                                 <th colspan="2"> Action </th>
+                                @endif                            
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th> Office Name: </th>
-                                <th> Number Of Employee: </th>                                
                                 <th> Office Location: </th>
+                                <th> Number Of Employee: </th>                                
+                                @if((Auth::user()->role)!="Reader")  
                                 <th colspan="2"> Action </th>
+                                @endif
                             </tr>
                         </tfoot>
                         <tbody>
@@ -35,6 +39,7 @@
                                 <td> {{$o->name}} </td>
                                 <td> {{$o->lid}} </td>
                                 <td> {{$o->empno}} </td>
+                                @if((Auth::user()->role)!="Reader")  
                                 <td align="center">  
                                     <a style="color:blue; text-decoration:none" href="{{route('office.edit',$o->id)}}">
                                             <i class="ph-note-pencil"> </i> <b> Edit </b>
@@ -46,7 +51,8 @@
                                         {{ method_field('delete') }}
                                         <input style="background-color:#b00000;" type="submit" class="btn btn-danger" value="Delete">
                                     </form>
-                                </td>                                            
+                                </td>         
+                                @endif                                   
                             </tr>
                             @endforeach
                         </tbody>

@@ -3,6 +3,8 @@
 @section('content')
     <div class="content">
         <br>
+
+        @if((Auth::user()->role)!="Reader")                                                                
         <div class="container">                
             <h3> Add New Storage: </h3>
             <form name="storageform" id="storageform" onsubmit="return validateStorageInput()" action="{{route('storage.store')}}" method="POST">
@@ -42,9 +44,9 @@
                 <hr>    
             </form>
         </div>
-
         <br>
-        
+        @endif  
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h3>                     
@@ -62,7 +64,9 @@
                                 <th> Name </th>
                                 <th> Description</th>
                                 <th> Office </th>
+                                @if((Auth::user()->role)!="Reader")  
                                 <th colspan="2"> Action </th>
+                                @endif
                             </tr>
                         </thead>
                         <tfoot>
@@ -71,7 +75,9 @@
                                 <th> Name </th>
                                 <th> Description</th>
                                 <th> Office </th>
+                                @if((Auth::user()->role)!="Reader")  
                                 <th colspan="2"> Action </th>
+                                @endif
                             </tr>
                         </tfoot>
                         <tbody>
@@ -81,9 +87,10 @@
                                 <td> {{$s->name}} </td>
                                 <td> {{$s->description}} </td>
                                 <td> {{$s->office_id}} </td>
+                                @if((Auth::user()->role)!="Reader")  
                                 <td align="center">  
                                     <a style="color:blue; text-decoration:none" href="{{route('storage.edit',$s->id)}}">
-                                            <i class="ph-note-pencil"> </i> <b> Edit </b>
+                                        <i class="ph-note-pencil"> </i> <b> Edit </b>
                                     </a>
                                 </td>
                                 <td align="center"> 
@@ -93,6 +100,7 @@
                                         <input style="background-color:#b00000;" type="submit" class="btn btn-danger" value="Delete">
                                     </form>
                                 </td>                                           
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

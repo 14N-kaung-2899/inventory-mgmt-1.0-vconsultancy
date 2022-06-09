@@ -60,8 +60,8 @@
                                 <td> {{$oldemployment->salary}} </td>
                                 <td> {{$oldemployment->link}} </td>
                                 <td align="center">  
-                                    <a href="{{route('employment.create')}}">
-                                        Cancel Editing
+                                    <a style="color:orange; text-decoration:none" href="{{route('employment.create')}}">
+                                        <i class="ph-prohibit-bold"></i> <b> Cancel Editing </b>
                                     </a>
                                 </td>                                          
                             </tr>

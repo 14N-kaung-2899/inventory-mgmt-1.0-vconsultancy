@@ -16,7 +16,8 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        //
+        $payroll = Payroll::orderBy('id','asc')->get();
+        return view('payroll.index', compact('payroll'));
     }
 
     /**
@@ -26,7 +27,7 @@ class PayrollController extends Controller
      */
     public function create()
     {
-        $payroll = Payroll::orderBy('bank','asc')->get();
+        $payroll = Payroll::orderBy('updated_at','desc')->get();
         $subdistrict = Subdistrict::orderBy('name','asc')->get();
         
         return view('payroll.create', compact('payroll','subdistrict'));
@@ -58,7 +59,7 @@ class PayrollController extends Controller
         $payroll->subdistrict_id = request('subdistrict_id');
         $payroll->save();
         
-        $payroll = Payroll::orderBy('bank','asc')->get();
+        $payroll = Payroll::orderBy('updated_at','desc')->get();
         $subdistrict = Subdistrict::orderBy('name','asc')->get();
         return view('payroll.create', compact('payroll','subdistrict'));
     }
@@ -121,7 +122,7 @@ class PayrollController extends Controller
             'code' => $request->code
         ]);
         
-        $payroll = Payroll::orderBy('bank','asc')->get();
+        $payroll = Payroll::orderBy('updated_at','desc')->get();
         $subdistrict = Subdistrict::orderBy('name','asc')->get();
         return view('payroll.create', compact('payroll','subdistrict'));
     }

@@ -10,7 +10,7 @@
 <!-- <form
     class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
     <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+        <input type="searchbox" class="form-control bg-light border-0 small" placeholder="Type Something Here..."
             aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
             <button class="btn btn-primary" type="button">
@@ -20,16 +20,18 @@
     </div>
 </form> -->
 
+<img width="280" height="200" src="https://storage.googleapis.com/stateless-my-aibt-global/2018/12/86b73503-vc-logo-landscape-01-full-colour.svg" alt="">
+
 <!-- Topbar Navbar -->
 <ul class="navbar-nav ml-auto">
 
     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-    <li class="nav-item dropdown no-arrow d-sm-none">
+    <!-- <li class="nav-item dropdown no-arrow d-sm-none">
         <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-search fa-fw"></i>
         </a>
-        <!-- Dropdown - Messages -->
+        
         <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
             aria-labelledby="searchDropdown">
             <form class="form-inline mr-auto w-100 navbar-search">
@@ -45,7 +47,7 @@
                 </div>
             </form>
         </div>
-    </li>
+    </li> -->
 
     <!-- Nav Item - Alerts -->
     <!-- <li class="nav-item dropdown no-arrow mx-1">
@@ -166,25 +168,26 @@
     <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-            <img class="img-profile rounded-circle"
-                src="img/undraw_profile.svg">
+            <i class="ph-user-circle-bold" style="color:#D4A953"> </i>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->name }} </span>
+            <!-- <img class="img-profile rounded-circle"
+                src="img/undraw_profile.svg"> -->
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">
+            <!-- <a class="dropdown-item" href="#">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
             </a>
             <a class="dropdown-item" href="#">
                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                 Settings
-            </a>
-            <div class="dropdown-divider"></div>
+            </a> 
+            <div class="dropdown-divider"></div> -->
             <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
+                <i class="ph-sign-out-bold"></i>
             </a>
         </div>
     </li>

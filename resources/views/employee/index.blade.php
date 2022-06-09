@@ -23,7 +23,11 @@
                                     <th> Primary Mail </th>
                                     <th> Primary Phone </th>
                                     <th> Office </th>
-                                    <th colspan="3"> Action </th>
+                                    @if((Auth::user()->role)!="Reader")
+                                        <th colspan="3"> Action </th>
+                                    @else
+                                        <th> Action </th>
+                                    @endif  
                                 </tr>
                             </thead>
                             <tfoot>
@@ -34,7 +38,11 @@
                                     <th> Primary Mail </th>
                                     <th> Primary Phone </th>
                                     <th> Office </th>
-                                    <th colspan="3"> Action </th>
+                                    @if((Auth::user()->role)!="Reader")
+                                        <th colspan="3"> Action </th>
+                                    @else
+                                        <th> Action </th>
+                                    @endif   
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -47,10 +55,11 @@
                                     <td> {{$e->mobile}} </td>
                                     <td> {{$e->oid}} </td>
                                     <td align="center">  
-                                        <a href="{{route('employee.show',$e->id)}}">
-                                            View Details
+                                        <a style="color:green; text-decoration:none" href="{{route('employee.show',$e->id)}}">
+                                            <i class="ph-clipboard-text-bold"></i> <b> View </b>
                                         </a>
                                     </td>
+                                    @if((Auth::user()->role)!="Reader")                                    
                                     <td align="center">  
                                         <a href="{{route('employee.edit',$e->id)}}">
                                             EDIT
@@ -62,7 +71,8 @@
                                             {{ method_field('delete') }}
                                             <input style="background-color:#b00000;" type="submit" class="btn btn-danger" value="Delete">
                                         </form>
-                                    </td>                                            
+                                    </td>      
+                                    @endif                                      
                                 </tr>
                                 @endforeach
                             </tbody>
