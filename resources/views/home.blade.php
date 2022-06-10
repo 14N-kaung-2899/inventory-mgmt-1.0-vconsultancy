@@ -164,7 +164,7 @@
                             </font>
                             <font color="#D4A953">
                                 <b>
-                                    Total Strage:
+                                    Total Storage:
                                 </b>
                             </font>     
                             <br>
