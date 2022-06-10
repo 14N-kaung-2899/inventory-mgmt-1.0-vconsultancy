@@ -32,9 +32,18 @@
         
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h3>                     
+                <h3>
                     <font size="5" color="black"> 
-                        <b> Employment Database: </b>
+                        @if((Auth::user()->role)!="Reader")  
+                            <i class="ph-identification-badge-bold"></i>
+                            &nbsp
+                            <b> Employment List: </b>                              
+                        @else
+                            <i class="ph-database-bold"> 
+                            </i>  
+                            &nbsp
+                            <b> Employment Database: </b> 
+                        @endif                     
                     </font>
                 </h3>
             </div>

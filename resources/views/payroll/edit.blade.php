@@ -103,7 +103,13 @@
         
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"> Payroll List: </h6>
+                <h3>                     
+                    <font size="5" color="black"> 
+                        <i class="ph-wallet-bold"></i>
+                        &nbsp
+                        <b> Payroll List: </b>      
+                    </font>
+                </h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

@@ -29,7 +29,9 @@
             <div class="card-header py-3">
                 <h3>                     
                     <font size="5" color="black"> 
-                        <b> Role & Responsibility: </b>
+                        <i class="ph-star-bold"></i> 
+                        &nbsp
+                        <b> Role & Responsibility: </b>                
                     </font>
                 </h3>
             </div>

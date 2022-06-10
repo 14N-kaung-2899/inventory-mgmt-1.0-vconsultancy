@@ -6,7 +6,16 @@
             <div class="card-header py-3">
                 <h3>                     
                     <font size="5" color="black"> 
-                        <b> Office Location List: </b>
+                        @if((Auth::user()->role)!="Reader")  
+                            <i class="ph-navigation-arrow-bold"></i>
+                            &nbsp
+                            <b> Office Location List: </b>                              
+                        @else
+                            <i class="ph-database-bold"> 
+                            </i>  
+                            &nbsp
+                            <b> Office Location Database: </b> 
+                        @endif                     
                     </font>
                 </h3>
             </div>

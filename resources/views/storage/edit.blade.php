@@ -45,52 +45,58 @@
                         {{ __('Update') }}
                     </button>
                 <hr>    
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th> ID </th>
-                                        <th> Name </th>
-                                        <th> Description</th>
-                                        <th> Office </th>
-                                        <th colspan="2"> Action </th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th> ID </th>
-                                        <th> Name </th>
-                                        <th> Description</th>
-                                        <th> Office </th>
-                                        <th colspan="2"> Action </th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    @foreach ($storage as $s)
-                                    <tr>
-                                        <td> {{$s->storageid}} </td>
-                                        <td> {{$s->name}} </td>
-                                        <td> {{$s->description}} </td>
-                                        <td> {{$s->office_id}} </td>
-                                        <td>  
-                                            <a style="color:orange; text-decoration:none" href="{{route('storage.create')}}">
-                                                <i class="ph-prohibit-bold"></i> <b> Cancel Editing </b>
-                                            </a>
-                                        </td>                                  
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>                                
             </form>
         </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h3>                     
+                    <font size="5" color="black">                         
+                            <i class="ph-package-bold"></i> 
+                            &nbsp
+                            <b> Storage List: </b> 
+                    </font>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th> ID </th>
+                                <th> Name </th>
+                                <th> Description</th>
+                                <th> Office </th>
+                                <th colspan="2"> Action </th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th> ID </th>
+                                <th> Name </th>
+                                <th> Description</th>
+                                <th> Office </th>
+                                <th colspan="2"> Action </th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach ($storage as $s)
+                            <tr>
+                                <td> {{$s->storageid}} </td>
+                                <td> {{$s->name}} </td>
+                                <td> {{$s->description}} </td>
+                                <td> {{$s->office_id}} </td>
+                                <td>  
+                                    <a style="color:orange; text-decoration:none" href="{{route('storage.create')}}">
+                                        <i class="ph-prohibit-bold"></i> <b> Cancel Editing </b>
+                                    </a>
+                                </td>                                  
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>                                
     </div>  
     <!-- Checking Null JS -->
     <script src="{{asset('admin/js/validation/storagevalidation.js')}}"></script>

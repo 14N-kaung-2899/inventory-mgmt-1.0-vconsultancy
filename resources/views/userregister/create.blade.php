@@ -80,13 +80,14 @@
 
     <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h3>                     
+                <h3>               
+                    <i class="ph-user-circle-bold"></i>
                     <font size="5" color="black"> 
                         <b> User Account List: </b>
                     </font>
                     |
                     <font size="3">
-                        <a style="color:black; text-decoration:none" href="{{route('userregister.index',0)}}">
+                        <a style="color:white; text-decoration:none" href="{{route('userregister.index',0)}}">
                             <b> <i class="ph-gear-bold"> &nbsp Manage User Accounts </i></b>
                         </a>
                     </font>

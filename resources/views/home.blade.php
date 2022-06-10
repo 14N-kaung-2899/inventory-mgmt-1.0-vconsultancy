@@ -2,16 +2,25 @@
 
 @section('content')
 <div class="container">
+
+    <!-- Admin Panel Start -->
     <h3> 
         <b>
             <font color="#000">
-                Admin Panel: 
+                @if((Auth::user()->role)=="Admin")
+                    <i class="ph-shield-check-bold"></i> Admin Panel: 
+                @elseif((Auth::user()->role)=="Manager")
+                    Manager Panel: 
+                @else
+                    <i class="ph-database-bold"></i> Database For Reader Accounts:
+                    <hr>
+                    Office Database:
+                @endif
             </font>
         </b> 
     </h3>
 
     <div class="row">
-
         <!-- Employee Card -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
@@ -138,20 +147,55 @@
             </div>
         </div>
         @endif
-
     </div>
+    <!-- Admin Panel End -->
 
+    <!-- Inventory Panel Start -->
     <hr>
 
     <h3> 
         <b>
             <font color="#000">
-                Office Panel: 
+                @if((Auth::user()->role)!="Reader")   
+                    <i class="ph-hard-drives-bold"></i> Inventory Panel: 
+                @else
+                    <i class="ph-database-bold"></i> Inventory Database: 
+                @endif
             </font>
         </b> 
     </h3>
-
+        
     <div class="row">
+
+        <!-- Item Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <font size="7">
+                                <i class="ph-codesandbox-logo-bold" style="color:#D4A953"></i>
+                            </font>
+                            <font color="#D4A953">
+                                <b>
+                                    Total Item:
+                                </b>
+                            </font>     
+                            <br>
+                            <center> 
+                                 {{count($item)}}
+                            </center>
+                            <hr>
+                            <center>
+                                <a href="{{route('item.index')}}">   
+                                    <input type="button" class="btn-primary" value="View Database">          
+                                </a>
+                            </center>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Storage Card -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -212,74 +256,88 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Item Card -->
+    <!-- Inventory Panel End -->
+     
+    <!-- Document Panel Start -->
+    <hr>
+
+    <h3> 
+        <b>
+            <font color="#000">
+                @if((Auth::user()->role)!="Reader")   
+                    <i class="ph-stack-overflow-logo-bold"></i> Documents Panel:                 
+                @endif
+            </font>
+        </b> 
+    </h3>
+
+    @if((Auth::user()->role)!="Reader")
+    <div class="row">
+        <!-- Employment Card -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <font size="7">
-                                <i class="ph-codesandbox-logo-bold" style="color:#D4A953"></i>
+                                <i class="ph-files-bold" style="color:#D4A953"></i>
                             </font>
                             <font color="#D4A953">
                                 <b>
-                                    Total Item:
+                                    Employment:
                                 </b>
-                            </font>     
+                            </font>  
                             <br>
                             <center> 
-                                 {{count($item)}}
+                                 {{count($employment)}}
+                            </center> 
+                            <hr>
+                            <center>
+                                <a href="{{route('employment.create')}}">   
+                                    <input type="button" class="btn-primary" value="View Database">          
+                                </a>  
+                            </center>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payroll Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <font size="7">
+                                <i class="ph-wallet-bold" style="color:#D4A953"></i>
+                            </font>
+                            <font color="#D4A953">
+                                <b>
+                                    Payroll:
+                                </b>
+                            </font>   
+                            <br>
+                            <center> 
+                                 {{count($payroll)}}
                             </center>
                             <hr>
                             <center>
-                                <a href="{{route('item.index')}}">   
-                                    <input type="button" class="btn-primary" value="View Database">          
-                                </a>
-                            </center>   
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @if((Auth::user()->role)!="Reader")
-        <!-- Document Card -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <font size="7">
-                                <i class="ph-stack-overflow-logo-bold" style="color:#D4A953"></i>
-                            </font>
-                            <font color="#D4A953">
-                                <b>
-                                    Documents:
-                                </b>
-                            </font>   
-                            <hr>
-                            <center>
-                                Payroll:
-                                <br>
                                 <a href="{{route('payroll.index')}}">   
                                     <input type="button" class="btn-primary" value="View Database">          
-                                </a>
-                                <br>
-                                Employment:
-                                <br>
-                                <a href="{{route('employment.create')}}">   
-                                    <input type="button" class="btn-primary" value="View Database">          
-                                </a>      
+                                </a> 
                             </center>   
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @endif
+        </div>        
     </div>
+    @endif
 
-    <hr>
+    <!-- Document Panel End -->
+                                 
 </div>
 @endsection

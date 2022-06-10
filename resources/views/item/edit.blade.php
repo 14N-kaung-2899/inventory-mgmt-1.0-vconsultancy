@@ -104,9 +104,12 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">
-                    {{ __('Register') }}
+                    {{ __('Update') }}
                 </button>
                 <hr>                                    
+                <a style="color:orange; text-decoration:none" href="{{route('item.index')}}">
+                    <i class="ph-prohibit-bold"></i> <b> Cancel Editing </b>
+                </a>  
             </form>
         </div>
     </div>  

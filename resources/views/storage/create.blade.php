@@ -45,13 +45,22 @@
             </form>
         </div>
         <br>
-        @endif  
-
-        <div class="card shadow mb-4">
+        @endif                                          
+    </div>  
+    <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h3>                     
                     <font size="5" color="black"> 
-                        <b> Storage List: </b>
+                        @if((Auth::user()->role)!="Reader")  
+                            <i class="ph-package-bold"></i> 
+                            &nbsp
+                            <b> Storage List: </b>                              
+                        @else
+                            <i class="ph-database-bold"> 
+                            </i>  
+                            &nbsp
+                            <b> Storage Database: </b> 
+                        @endif                     
                     </font>
                 </h3>
             </div>
@@ -107,8 +116,7 @@
                     </table>
                 </div>
             </div>
-        </div>                                
-    </div>  
+        </div>
 
     <!-- Checking Null JS -->
     <script src="{{asset('admin/js/validation/storagevalidation.js')}}"></script>

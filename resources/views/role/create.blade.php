@@ -30,7 +30,16 @@
             <div class="card-header py-3">
                 <h3>                     
                     <font size="5" color="black"> 
-                        <b> Role & Responsibility: </b>
+                        @if((Auth::user()->role)!="Reader")  
+                            <i class="ph-star-bold"></i> 
+                            &nbsp
+                            <b> Role & Responsibility: </b>                              
+                        @else
+                            <i class="ph-database-bold"> 
+                            </i>  
+                            &nbsp
+                            <b> Role Database: </b> 
+                        @endif                     
                     </font>
                 </h3>
             </div>

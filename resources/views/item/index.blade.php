@@ -3,10 +3,20 @@
 @section('content')
     <div class="content">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3">                
                 <h3>                     
                     <font size="5" color="black"> 
-                        <b> Inventory List: </b>
+                        @if((Auth::user()->role)!="Reader")  
+                            <i class="ph-atom-bold"> 
+                            </i>  
+                            &nbsp
+                            <b> Inventory List: </b>                              
+                        @else
+                            <i class="ph-database-bold"> 
+                            </i>  
+                            &nbsp
+                            <b> Inventory Database: </b> 
+                        @endif                     
                     </font>
                 </h3>
             </div>
