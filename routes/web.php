@@ -37,6 +37,7 @@ use app\Http\Controllers\PayrollController;
 */
 
 Auth::routes();
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

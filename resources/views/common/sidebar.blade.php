@@ -48,7 +48,7 @@
                             <a class="collapse-item" href="{{ route('item.create') }}"> <i class="ph-stack-overflow-logo"></i> Register New Item </a>
                             <a class="collapse-item" href="{{ route('item.index') }}"> <i class="ph-gear-bold"></i> Manage Items </a>
                         @else
-                            <a class="collapse-item" href="{{ route('item.index') }}"> <i class="ph-squares-four-bold"></i> Manage Items </a>
+                            <a class="collapse-item" href="{{ route('item.index') }}"> <i class="ph-squares-four-bold"></i> View Items </a>
                         @endif
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header" style="color:#D4A953"> <i class="ph-polygon"></i> Storage & Category :</h6>

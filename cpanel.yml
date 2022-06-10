@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home2/aibtglob/cg-ims.myvc.com.au/
+    - /bin/cp -R * $DEPLOYPATH
